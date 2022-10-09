@@ -85,11 +85,11 @@ function Booking() {
   ];
   useEffect(() => {
     getBookings();
-  },[]);
-    const componentRef=useRef()
-    const handlePrint=useReactToPrint({
-        content: () => componentRef.current
-    })
+  }, []);
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   return (
     <div>
       <PageTitle title="Bookings" />
@@ -98,42 +98,42 @@ function Booking() {
       </div>
 
       {showPrintModal && (
-          <Modal
-            title="Print Ticket"
-            onCancel={() => {
-              setShowPrintModal(false);
-              setSelectedBooking(null);
-            }}
-            visible={showPrintModal}
-            okText="Print"
-            onOk={handlePrint}
-          >
-            <div className="d-flex flex-column p-5" ref={componentRef}>
-              <p>Bus : {selectedBooking.name}</p>
-              <p>
-                {selectedBooking.from} - {selectedBooking.to}
-              </p>
-              <hr />
-              <p>
-                <span>Journey Date:</span>{" "}
-                {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
-              </p>
-              <p>
-                <span>Journey Time:</span> {selectedBooking.departure}
-              </p>
-              <hr />
-              <p>
-                <span>Seat Numbers:</span> <br />
-                {selectedBooking.seats}
-              </p>
-              <hr />
-              <p>
-                <span>Total Amount:</span>{" "}
-                {selectedBooking.fare * selectedBooking.seats.length} /-
-              </p>
-            </div>
-          </Modal>
-        )}
+        <Modal
+          title="Print Ticket"
+          onCancel={() => {
+            setShowPrintModal(false);
+            setSelectedBooking(null);
+          }}
+          visible={showPrintModal}
+          okText="Print"
+          onOk={handlePrint}
+        >
+          <div className="d-flex flex-column p-5" ref={componentRef}>
+            <p>Bus : {selectedBooking.name}</p>
+            <p>
+              {selectedBooking.from} - {selectedBooking.to}
+            </p>
+            <hr />
+            <p>
+              <span>Journey Date:</span>{" "}
+              {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
+            </p>
+            <p>
+              <span>Journey Time:</span> {selectedBooking.departure}
+            </p>
+            <hr />
+            <p>
+              <span>Seat Numbers:</span> <br />
+              {selectedBooking.seats}
+            </p>
+            <hr />
+            <p>
+              <span>Total Amount:</span>{" "}
+              {selectedBooking.fare * selectedBooking.seats.length} /-
+            </p>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

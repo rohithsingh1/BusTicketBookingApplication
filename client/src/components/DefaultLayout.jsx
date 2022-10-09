@@ -49,7 +49,7 @@ function DefaultLayout({ children }) {
     },
     {
       name: "Bookings",
-      path: "/admin/bookings",
+      path: "/bookings",
       icon: "ri-file-list-line",
     },
     {
