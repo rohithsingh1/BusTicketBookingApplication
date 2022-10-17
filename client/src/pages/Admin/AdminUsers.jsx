@@ -1,11 +1,11 @@
 import { message, Table } from "antd";
 import axios from "axios";
-import moment from "moment";
+//import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import BusForm from "../../components/BusForm";
+//import BusForm from "../../components/BusForm";
 import PageTitle from "../../components/PageTitle";
-import { axiosInstance } from "../../helpers/axiosInstance";
+//import { axiosInstance } from "../../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 
 function AdminUsers() {
@@ -14,7 +14,15 @@ function AdminUsers() {
   const getUsers = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post("/api/users/get-all-users", {});
+      const response = await axios.post(
+        "/api/users/get-all-users",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       dispatch(HideLoading());
       if (response.data.success) {
         setUsers(response.data.data);
@@ -51,9 +59,14 @@ function AdminUsers() {
         };
       }
       dispatch(ShowLoading());
-      const response = await axiosInstance.post(
+      const response = await axios.post(
         "/api/users/update-user-permissions",
-        payload
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       dispatch(HideLoading());
       if (response.data.success) {

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 function DefaultLayout({ children }) {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-  const {user}=useSelector((state) => {
+  const { user } = useSelector((state) => {
     return state.users;
   });
   const userMenu = [

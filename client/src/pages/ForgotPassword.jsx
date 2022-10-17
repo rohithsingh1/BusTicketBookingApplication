@@ -6,63 +6,47 @@ import { useDispatch } from "react-redux";
 import { ShowLoading, HideLoading } from "../redux/alertsSlice";
 import "../resources/auth.css";
 
-function Register() {
-  const dispatch = useDispatch();
+function ForgotPassword() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
-    name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    adminAccessCode: "",
   });
 
-  const register = async () => {
+  const forgot_password = async (req, res) => {
     try {
       if (
-        user.name !== "" &&
         user.email !== "" &&
         user.password !== "" &&
         user.confirmPassword !== ""
       ) {
-        if (user.password !== user.confirmPassword) {
-          message.error("password doesnot match");
+        dispatch(ShowLoading());
+        const response = await axios.post("/api/users/forgot-password", user);
+        dispatch(HideLoading());
+        if (response.data.success) {
+          message.success(response.data.message);
+          localStorage.setItem("token", response.data.token);
+          navigate("/");
         } else {
-          dispatch(ShowLoading());
-          const response = await axios.post("/api/users/register", user);
-          dispatch(HideLoading());
-          if (response.data.success) {
-            message.success(response.data.message);
-            navigate("/login");
-          } else {
-            message.error(response.data.message);
-          }
+          message.error(response.data.message);
         }
       } else {
-        message.error("please enter the all feilds");
+        message.error("enter the email and password");
       }
     } catch (error) {
       dispatch(HideLoading());
       message.error(error);
-      console.log("error in register form = ", error);
+      console.log("error in login = ", error);
     }
   };
-
   return (
     <div className="h-screen d-flex justify-content-center align-items-center auth">
       <div className="w-400 card p-3">
-        <h1 className="text-lg">Register</h1>
+        <h1 className="text-lg">Login</h1>
         <hr />
-        <Form layout="vertical" onFinish={register}>
-          <Form.Item label="Name" name="name">
-            <input
-              type="text"
-              placeholder="Name"
-              value={user.name}
-              onChange={(e) => setUser({ ...user, name: e.target.value })}
-              required
-            />
-          </Form.Item>
+        <Form layout="vertical" onFinish={forgot_password}>
           <Form.Item label="Email" name="email">
             <input
               type="email"
@@ -81,7 +65,7 @@ function Register() {
               required
             />
           </Form.Item>
-          <Form.Item label="Confirm Password" name="Confirm password">
+          <Form.Item label="ConfirmPassword" name="Confirmpassword">
             <input
               type="password"
               placeholder="Confirm Password"
@@ -92,20 +76,17 @@ function Register() {
               required
             />
           </Form.Item>
-          <Form.Item label="Admin Access code" name="Admin Access code">
-            <input
-              type="password"
-              placeholder="Admin Access code"
-              value={user.adminAccessCode}
-              onChange={(e) =>
-                setUser({ ...user, adminAccessCode: e.target.value })
-              }
-            />
-          </Form.Item>
+          <div className="d-flex justify-content-between align-items-end p-1 my-3">
+            <Link className="p-0 m-0 linkForgotPassword" to="/register">
+              Click Here To Register
+            </Link>
+            <Link className="p-0 m-0 linkForgotPassword" to="/login">
+              Remember Credentials?
+            </Link>
+          </div>
           <div className="d-flex justify-content-between align-items-center my-3">
-            <Link to="/login">Click Here To Login</Link>
             <button className="secondary-btn" type="submit">
-              Register
+              Login
             </button>
           </div>
         </Form>
@@ -114,4 +95,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default ForgotPassword;

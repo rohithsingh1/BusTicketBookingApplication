@@ -5,18 +5,26 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import BusForm from "../../components/BusForm";
 import PageTitle from "../../components/PageTitle";
-import { axiosInstance } from "../../helpers/axiosInstance";
+// import { axiosInstance } from "../../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 
 function AdminBuses() {
   const dispatch = useDispatch();
   const [showBusForm, setShowBusForm] = useState(false);
-  const [buses,setBuses]=useState([]);
-  const [selectedBus, setSelectedBus] = useState(null)
+  const [buses, setBuses] = useState([]);
+  const [selectedBus, setSelectedBus] = useState(null);
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post("/api/buses/get-all-buses", {});
+      const response = await axios.post(
+        "/api/buses/get-all-buses",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       dispatch(HideLoading());
       if (response.data.success) {
         setBuses(response.data.data);
@@ -29,24 +37,32 @@ function AdminBuses() {
     }
   };
 
-  const deleteBus=async (id) => {
+  const deleteBus = async (id) => {
     try {
-      dispatch(ShowLoading())
-      const response=await axiosInstance.post('/api/buses/delete-bus',{
-        _id : id
-      })
-      dispatch(HideLoading())
-      if(response.data.success) {
-        message.success(response.data.message)
-        getBuses()
+      dispatch(ShowLoading());
+      const response = await axios.post(
+        "/api/buses/delete-bus",
+        {
+          _id: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.message);
+        getBuses();
       } else {
-        message.error(response.data.message)
+        message.error(response.data.message);
       }
     } catch (error) {
-      dispatch(HideLoading())
-      message.error(error.message)
+      dispatch(HideLoading());
+      message.error(error.message);
     }
-  }
+  };
 
   const columns = [
     {
@@ -97,10 +113,8 @@ function AdminBuses() {
   ];
 
   useEffect(() => {
-    getBuses()
-  }, [])
-  
-
+    getBuses();
+  }, []);
 
   return (
     <div>
@@ -116,10 +130,11 @@ function AdminBuses() {
         <BusForm
           showBusForm={showBusForm}
           setShowBusForm={setShowBusForm}
-          type={selectedBus? 'edit':'add'}
+          type={selectedBus ? "edit" : "add"}
           selectedBus={selectedBus}
           setSelectedBus={setSelectedBus}
-          getData={getBuses} />
+          getData={getBuses}
+        />
       )}
     </div>
   );

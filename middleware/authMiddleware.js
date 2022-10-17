@@ -5,7 +5,7 @@ module.exports=(req,res,next) => {
         const jwtToken=req.headers.authorization.split(" ")[1];
         if(!jwtToken) {
             return res.status(401).send({
-                message: 'Auth Failed',
+                message: 'Token not found or expired',
                 success: false,
                 data: null,
                 token : null
@@ -18,7 +18,7 @@ module.exports=(req,res,next) => {
         
     } catch (error) {
          return res.status(401).send({
-                message: 'Auth Failed',
+                message: 'Authorization Failed',
                 success: false,
                 data: null,
                 token : null

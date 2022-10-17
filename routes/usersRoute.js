@@ -19,6 +19,16 @@ router.post('/register',async (req,res) => {
         const hashedPassword=await bcrypt.hash(req.body.password,10)
         req.body.password=hashedPassword
         const newUser=new User(req.body)
+        if(req.body.adminAccessCode==='rohithsingh') {
+            newUser.isAdmin=true
+            await newUser.save()
+            return res.status(200).send({
+                message: 'Admin created successfully',
+                success: true,
+                data: newUser,
+                token : null
+            })
+        }
         await newUser.save()
         res.send({
             message: 'User created successfully',
@@ -76,7 +86,16 @@ router.post('/login',async (req,res) => {
             expiresIn : '1d'
         })
 
-        res.send({
+        //const {_id, email, isAdmin, isBlocked}=userExists
+        if(userExists.isAdmin) {
+            return res.status(200).send({
+                message: "Admin logged in Successfully",
+                success: true,
+                data: userExists,
+                token : jwtToken
+            })
+        }
+        res.status(200).send({
             message: "User logged in Successfully",
             success: true,
             data: userExists,
@@ -92,6 +111,60 @@ router.post('/login',async (req,res) => {
     }
 })
 
+
+router.post('/forgot-password', async (req, res) => {
+     try {
+        const userExists=await User.findOne({email: req.body.email})
+        if(!userExists) {
+            return res.send({
+                message: 'User does not exist',
+                success: false,
+                data: null,
+                token : null
+            })
+        }
+
+        if(userExists.isBlocked) {
+            return res.status(200).send({
+                message: 'Your account is blocked,please contact admin',
+                success: false,
+                data: null,
+                token : null,
+            })
+         }
+         
+        const hashedPassword=await bcrypt.hash(req.body.password,10)
+         req.body.password=hashedPassword
+         const updatedUser=await User.findByIdAndUpdate(userExists._id, {
+             password : req.body.password
+         }, {
+             new: true
+         })
+         const jwtToken=jwt.sign({
+            name: updatedUser.name,
+            email: updatedUser.email,
+            userId: updatedUser._id,
+            isAdmin: updatedUser.isAdmin,
+            isBlocked: updatedUser.isBlocked
+        },process.env.JWT_KEY,{
+            expiresIn : '1d'
+        })
+         const {_id, email, isAdmin, isBlocked}=updatedUser
+         return res.status(200).send({
+                message: "Password updated Successfully",
+                success: true,
+                data: {_id,email,isAdmin,isBlocked},
+                token : jwtToken
+            })
+    } catch (error) {
+        res.send({
+            message: error.message,
+            success: false,
+            data: null,
+            token : null
+        })
+    }
+})
 
 router.post('/get-user-by-id',authMiddleware,async (req,res) => {
     try {

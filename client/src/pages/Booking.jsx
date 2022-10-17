@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 //import BusForm from "../components/BusForm";
 import PageTitle from "../components/PageTitle";
-import { axiosInstance } from "../helpers/axiosInstance";
+//import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import { useReactToPrint } from "react-to-print";
 
@@ -17,9 +17,14 @@ function Booking() {
   const getBookings = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post(
+      const response = await axios.post(
         "/api/bookings/get-bookings-by-user-id",
-        {}
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       dispatch(HideLoading());
       if (response.data.success) {

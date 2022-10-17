@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "antd";
-import '../resources/bus.css';
+import "../resources/bus.css";
 
 function SeatSelection({ selectedSeats, setSelectedSeats, bus }) {
   const capacity = bus.capacity;

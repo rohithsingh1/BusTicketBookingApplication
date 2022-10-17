@@ -8,12 +8,11 @@ import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Loader from "./components/Loader";
 import { useSelector } from "react-redux";
-//import AdminHome from "./pages/Admin/AdminHome";
 import AdminBuses from "./pages/Admin/AdminBuses";
 import AdminUsers from "./pages/Admin/AdminUsers";
 import BookNow from "./pages/BookNow";
-import PaymentForm from "./components/PaymentForm";
 import Bookings from './pages/Booking'
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   const {loading}=useSelector((state) => {
@@ -37,7 +36,8 @@ function App() {
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>}></Route>
     
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>}></Route>
-        
+
+          <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
         </Routes>
       </BrowserRouter>
     </div>

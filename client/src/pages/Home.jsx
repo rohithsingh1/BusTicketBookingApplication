@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Bus from "../components/Bus";
-import { axiosInstance } from "../helpers/axiosInstance";
+//import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 
 function Home() {
@@ -14,6 +14,7 @@ function Home() {
   const dispatch = useDispatch();
   const [buses, setBuses] = useState([]);
   const tempFilters = {};
+
   const getBuses = async () => {
     console.log("object.keys(filters) = ", Object.keys(filters));
     Object.keys(filters).forEach((key) => {
@@ -26,9 +27,14 @@ function Home() {
     });
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post(
+      const response = await axios.post(
         "/api/buses/get-all-buses",
-        tempFilters
+        tempFilters,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       dispatch(HideLoading());
       if (response.data.success) {

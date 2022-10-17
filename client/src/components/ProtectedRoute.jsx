@@ -7,67 +7,50 @@ import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import { SetUser } from "../redux/usersSlice";
 import DefaultLayout from "./DefaultLayout";
 
-function ProtectedRoute({children}) {
-    const navigate=useNavigate()
-    const dispatch = useDispatch()
-    const {user}=useSelector((state) => {
-        return state.users;
-    })
-    const validateToken=async () => {
-        try {
-            dispatch(ShowLoading());
-            const response = await axios.post(
-              "/api/users/get-user-by-id",
-              {},
-              {
-                headers: {
-                  Authorization : `Bearer ${localStorage.getItem('token')}`
-                },
-              }
-            );
-            dispatch(HideLoading())
-            if(response.data.success) {
-                dispatch(SetUser(response.data.data))
-            } else {
-                localStorage.removeItem('token')
-                message.error(response.data.message)
-                navigate('/login')
-            }
-        } catch(error) {
-            dispatch(HideLoading())
-            localStorage.removeItem("token");
-            message.error(error.message);
-            navigate("/login");
+function ProtectedRoute({ children }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => {
+    return state.users;
+  });
+  const validateToken = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axios.post(
+        "/api/users/get-user-by-id",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
+      );
+      dispatch(HideLoading());
+      if (response.data.success) {
+        dispatch(SetUser(response.data.data));
+      } else {
+        localStorage.removeItem("token");
+        message.error(response.data.message);
+        navigate("/login");
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      localStorage.removeItem("token");
+      message.error(error.message);
+      navigate("/login");
     }
-    useEffect(() => {
-        if(localStorage.getItem('token')) {
-            validateToken()
-        } else {
-            navigate('/login')
-        }
-    },[])
-    
-    return <div>{user !== null && <DefaultLayout>{children}</DefaultLayout>}</div>;
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      validateToken();
+    } else {
+      navigate("/login");
+    }
+  }, []);
+
+  return (
+    <div>{user !== null && <DefaultLayout>{children}</DefaultLayout>}</div>
+  );
 }
 
-export default ProtectedRoute
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default ProtectedRoute;

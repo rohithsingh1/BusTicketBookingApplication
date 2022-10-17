@@ -1,10 +1,11 @@
-const router = require("express").Router();
+require('dotenv').config()
+const router=require("express").Router();
 const authMiddleware = require('../middleware/authMiddleware');
 const Booking = require('../models/bookingsModel');
 const Bus = require('../models/busModel');
 
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51LqVW6SHl7KO3iEFqfN4Pb0xr2SdN2RSkl0h4q2TlsxZ4UCCElvqTWZ7332HscfNYaVep94Op4xML77KJzrm8tEh00WDxBNivr');
+const stripe = Stripe(process.env.STRIPE_KEY);
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -36,18 +37,55 @@ router.post('/book-seat',authMiddleware,async (req,res) => {
 })
 
 
-router.post('/make-payment',authMiddleware,async (req,res) => {
-    const {token,amount}=req.body
-     console.log('uuid = ',uuidv4())
+router.post('/make-payment', authMiddleware, async (req, res) => {
+    try {
+        const {token,amount}=req.body
+        console.log('uuid = ', uuidv4())
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount ,
+            currency: "inr",  
+        });
+        console.log('paymentIntent = ', paymentIntent.client_secret);
+        const client_secret = paymentIntent.client_secret
+        if(paymentIntent) {
+            return res.status(200).send({
+                message: 'Payment Successfull',
+                success: true,
+                client_secret,
+                id: paymentIntent.id,
+                token : null
+            })   
+        } else {
+            return res.status(200).send({
+                message: 'Payment UnSuccessfull',
+                success: false,
+                data: null,
+                token : null
+            })   
+        }
+    } catch(error) {
+        console.log('error = ',error)
         return res.status(500).send({
-            message: "Payment Successfull",
+            message: "Payment error",
             data: {
                 token,
                 transactionId : uuidv4()
                 },
-            success: true,
+            success: false,
             token : null
         });
+    }
+
+        // .json(paymentIntent.client_secret);
+        // return res.status(500).send({
+        //     message: "Payment Successfull",
+        //     data: {
+        //         token,
+        //         transactionId : uuidv4()
+        //         },
+        //     success: true,
+        //     token : null
+        // });
     // try {
     //     const {token,amount}=req.body
     //     console.log('token = ',token)

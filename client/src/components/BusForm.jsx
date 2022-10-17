@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Col, Form, message, Modal, Row } from "antd";
-import { axiosInstance } from "../helpers/axiosInstance";
+// import { axiosInstance } from "../helpers/axiosInstance";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 //import moment from "moment";
@@ -29,7 +30,9 @@ function BusForm({
     fare: "",
     status: "Yet To Start",
   };
-  const [busDetails, setBusDetails] = useState(type === 'add'? InitialState : selectedBus);
+  const [busDetails, setBusDetails] = useState(
+    type === "add" ? InitialState : selectedBus
+  );
   function handleBusDetails(key, value) {
     setBusDetails((prev) => {
       return {
@@ -41,14 +44,26 @@ function BusForm({
   const onFinish = async () => {
     try {
       dispatch(ShowLoading());
-      let response=null;
+      let response = null;
       if (type === "add") {
-        response = await axiosInstance.post("/api/buses/add-bus", busDetails);
-      } else {
-        response = await axiosInstance.post("/api/buses/update-bus", {
-          ...busDetails,
-          _id: selectedBus._id,
+        response = await axios.post("/api/buses/add-bus", busDetails, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
+      } else {
+        response = await axios.post(
+          "/api/buses/update-bus",
+          {
+            ...busDetails,
+            _id: selectedBus._id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
       }
       dispatch(HideLoading());
       if (response.data.success) {
@@ -59,7 +74,7 @@ function BusForm({
       }
       getData();
       setShowBusForm(false);
-      setSelectedBus(null)
+      setSelectedBus(null);
     } catch (error) {
       dispatch(HideLoading());
       message.error(error.message);
@@ -71,7 +86,7 @@ function BusForm({
       title={type === "add" ? "Add Bus" : "Update Bus"}
       visible={showBusForm}
       onCancel={() => {
-        setSelectedBus(null)
+        setSelectedBus(null);
         setShowBusForm(false);
       }}
       footer={false}

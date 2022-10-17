@@ -9,27 +9,31 @@ import "../resources/auth.css";
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const onFinish = async () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const login = async (req, res) => {
     try {
-      const newUser = {
-        email,
-        password,
-      };
-      dispatch(ShowLoading());
-      const response = await axios.post("/api/users/login", newUser);
-      dispatch(HideLoading());
-      if (response.data.success) {
-        message.success(response.data.message);
-        localStorage.setItem("token", response.data.token);
-        window.location.href = "/";
+      if (user.email !== "" && user.password !== "") {
+        dispatch(ShowLoading());
+        const response = await axios.post("/api/users/login", user);
+        dispatch(HideLoading());
+        if (response.data.success) {
+          message.success(response.data.message);
+          localStorage.setItem("token", response.data.token);
+          navigate("/");
+        } else {
+          message.error(response.data.message);
+        }
       } else {
-        message.error(response.data.message);
+        message.error("enter the email and password");
       }
     } catch (error) {
       dispatch(HideLoading());
-      message.error(error.message);
+      message.error(error);
+      console.log("error in login = ", error);
     }
   };
   return (
@@ -37,23 +41,30 @@ function Login() {
       <div className="w-400 card p-3">
         <h1 className="text-lg">Login</h1>
         <hr />
-        <Form layout="vertical" onFinish={onFinish}>
+        <Form layout="vertical" onFinish={login}>
           <Form.Item label="Email" name="email">
             <input
-              type="text"
-              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Email"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
               required
             />
           </Form.Item>
           <Form.Item label="Password" name="password">
             <input
               type="password"
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
               required
             />
           </Form.Item>
           <div className="d-flex justify-content-between align-items-center my-3">
             <Link to="/register">Click Here To Register</Link>
+            <Link to="/forgot-password">forgot Password?</Link>
+          </div>
+          <div className="d-flex justify-content-between align-items-center my-3">
             <button className="secondary-btn" type="submit">
               Login
             </button>
