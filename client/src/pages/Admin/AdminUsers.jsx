@@ -15,7 +15,7 @@ function AdminUsers() {
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/users/get-all-users`,
+        `/api/users/get-all-users`,
         {},
         {
           headers: {
@@ -60,7 +60,7 @@ function AdminUsers() {
       }
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/users/update-user-permissions`,
+        `/api/users/update-user-permissions`,
         payload,
         {
           headers: {

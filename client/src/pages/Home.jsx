@@ -28,7 +28,7 @@ function Home() {
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/buses/get-all-buses`,
+        `/api/buses/get-all-buses`,
         tempFilters,
         {
           headers: {

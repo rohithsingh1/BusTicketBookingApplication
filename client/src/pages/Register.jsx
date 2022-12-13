@@ -29,10 +29,7 @@ function Register() {
           message.error("password doesnot match");
         } else {
           dispatch(ShowLoading());
-          const response = await axios.post(
-            `${process.env.BACKEND_URL}/api/users/register`,
-            user
-          );
+          const response = await axios.post(`/api/users/register`, user);
           dispatch(HideLoading());
           if (response.data.success) {
             message.success(response.data.message);

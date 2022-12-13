@@ -18,7 +18,7 @@ function Booking() {
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/bookings/get-bookings-by-user-id`,
+        `/api/bookings/get-bookings-by-user-id`,
         {},
         {
           headers: {

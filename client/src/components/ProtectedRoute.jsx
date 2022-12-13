@@ -17,7 +17,7 @@ function ProtectedRoute({ children }) {
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/users/get-user-by-id`,
+        `/api/users/get-user-by-id`,
         {},
         {
           headers: {

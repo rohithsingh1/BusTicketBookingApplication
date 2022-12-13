@@ -17,7 +17,7 @@ function AdminBuses() {
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/buses/get-all-buses`,
+        `/api/buses/get-all-buses`,
         {},
         {
           headers: {
@@ -41,7 +41,7 @@ function AdminBuses() {
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/buses/delete-bus`,
+        `/api/buses/delete-bus`,
         {
           _id: id,
         },

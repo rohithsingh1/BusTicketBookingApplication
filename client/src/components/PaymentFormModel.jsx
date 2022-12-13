@@ -30,7 +30,7 @@ function PaymentFormModel({
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/bookings/make-payment`,
+        `/api/bookings/make-payment`,
         {
           amount,
         },

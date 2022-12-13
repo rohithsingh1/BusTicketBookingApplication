@@ -24,7 +24,7 @@ function ForgotPassword() {
       ) {
         dispatch(ShowLoading());
         const response = await axios.post(
-          `${process.env.BACKEND_URL}/api/users/forgot-password`,
+          `/api/users/forgot-password`,
           user
         );
         dispatch(HideLoading());

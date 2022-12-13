@@ -47,7 +47,7 @@ function BusForm({
       let response = null;
       if (type === "add") {
         response = await axios.post(
-          `${process.env.BACKEND_URL}/api/buses/add-bus`,
+          `/api/buses/add-bus`,
           busDetails,
           {
             headers: {
@@ -57,7 +57,7 @@ function BusForm({
         );
       } else {
         response = await axios.post(
-          `${process.env.BACKEND_URL}/api/buses/update-bus`,
+          `/api/buses/update-bus`,
           {
             ...busDetails,
             _id: selectedBus._id,

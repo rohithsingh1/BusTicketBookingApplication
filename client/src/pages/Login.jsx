@@ -19,7 +19,7 @@ function Login() {
       if (user.email !== "" && user.password !== "") {
         dispatch(ShowLoading());
         const response = await axios.post(
-          `${process.env.BACKEND_URL}/api/users/login`,
+          `/api/users/login`,
           user
         );
         dispatch(HideLoading());

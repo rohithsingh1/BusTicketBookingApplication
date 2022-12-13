@@ -27,7 +27,7 @@ function BookNow() {
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/buses/get-bus-by-id`,
+        `/api/buses/get-bus-by-id`,
         {
           _id: params.id,
         },
@@ -53,7 +53,7 @@ function BookNow() {
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/bookings/book-seat`,
+        `/api/bookings/book-seat`,
         {
           bus: bus._id,
           seats: selectedSeats,
