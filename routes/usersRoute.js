@@ -54,7 +54,7 @@ router.post('/login',async (req,res) => {
                 message: 'User does not exist',
                 success: false,
                 data: null,
-                token : null
+                token : null 
             })
         }
 

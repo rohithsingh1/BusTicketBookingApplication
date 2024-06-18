@@ -11,28 +11,29 @@ Error after initial connection was established. Mongoose will attempt to reconne
 To handle initial connection errors, you should use .catch() or try/catch with async/await.
 */
 
-const connectDB=async () => {
-    try {
-        /*
+const connectDB = async () => {
+  try {
+    /*
         You can connect to MongoDB with the mongoose.connect() method.
         */
-        const conn=await mongoose.connect(process.env.MONGO_URL,{
-            useNewUrlParser: true,
-      useUnifiedTopology: true
-        })
-         console.log(`MongoDB Connected: ${conn.connection.host}`);
-    } catch (error) {
-        console.log(`Error: ${error.message}`);
+    const conn = await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
     process.exit();
-    }
-}
+  }
+};
 /*
-To handle errors after initial connection was established, you should listen for error events on the connection.
+To handle errors after initial connection was established, you should listen for error events on the 
+connection.
 Note that Mongoose does not necessarily emit an 'error' event if it loses connectivity to MongoDB. 
 You should listen to the disconnected event to report when Mongoose is disconnected from MongoDB.
 */
-mongoose.connection.on('error', err => {
-  logError(err);
+mongoose.connection.on("error", (err) => {
+  console.log("err", err);
 });
 
 /*

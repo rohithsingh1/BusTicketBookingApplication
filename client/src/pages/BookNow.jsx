@@ -83,7 +83,8 @@ function BookNow() {
   }, []);
   return (
     <div>
-      {bus && (
+      {
+        bus&&(
         <Row className="mt-3" gutter={[30, 30]}>
           <Col lg={12} xs={24} sm={24}>
             <h1 className="text-2xl primary-text">{bus.name}</h1>

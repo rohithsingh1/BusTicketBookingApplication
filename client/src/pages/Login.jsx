@@ -10,8 +10,8 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "GuestUser@gmail.com",
+    password: "GuestUser",
   });
 
   const login = async (req, res) => {
