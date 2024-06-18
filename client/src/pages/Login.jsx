@@ -45,16 +45,16 @@ function Login() {
         <h1 className="text-lg">Login</h1>
         <hr />
         <Form layout="vertical" onFinish={login}>
-          <Form.Item label="Email" name="email">
+          <Form.Item label="Email">
             <input
               type="email"
               placeholder="Email"
-              value={user.email}
+              value={user.email ? user.email : "GuestUser@gmail.com"}
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               required
             />
           </Form.Item>
-          <Form.Item label="Password" name="password">
+          <Form.Item label="Password">
             <input
               type="password"
               placeholder="Password"
