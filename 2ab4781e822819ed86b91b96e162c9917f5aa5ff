@@ -1,0 +1,23 @@
+server/server.js
+  31a133d6b420cd60 7,18-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.7",
+  "base_commit_sha": "2ab4781e822819ed86b91b96e162c9917f5aa5ff",
+  "prompts": {
+    "31a133d6b420cd60": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019daa31-6b10-7033-b674-f78129fa078c",
+        "model": "gpt-5.4"
+      },
+      "human_author": "unknown",
+      "messages": [],
+      "total_additions": 20,
+      "total_deletions": 2,
+      "accepted_lines": 20,
+      "overriden_lines": 0
+    }
+  }
+}
