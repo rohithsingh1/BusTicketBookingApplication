@@ -1,0 +1,40 @@
+server/server.js
+  2638228c54fd75ce 6,20-25,28
+  31a133d6b420cd60 2,11-13,34,39-41,43-45,47-49
+server/package.json
+  2638228c54fd75ce 18,22-23
+  31a133d6b420cd60 19,21,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.7",
+  "base_commit_sha": "40df8cd893609df8ccf672a7e23d491a9c9ff6c4",
+  "prompts": {
+    "2638228c54fd75ce": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019db04e-bc6e-77f2-bab4-879b5e1ce596",
+        "model": "gpt-5.4"
+      },
+      "human_author": "unknown",
+      "messages": [],
+      "total_additions": 13,
+      "total_deletions": 1,
+      "accepted_lines": 13,
+      "overriden_lines": 0
+    },
+    "31a133d6b420cd60": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019daa31-6b10-7033-b674-f78129fa078c",
+        "model": "gpt-5.4"
+      },
+      "human_author": "unknown",
+      "messages": [],
+      "total_additions": 35,
+      "total_deletions": 30,
+      "accepted_lines": 20,
+      "overriden_lines": 0
+    }
+  }
+}
