@@ -16,7 +16,7 @@ const splitOrigins=(value) =>
 
 const nodeEnv=process.env.NODE_ENV||"development";
 const isProduction=nodeEnv==="production";
-const clientUrl=requireEnv("CLIENT_URL", "http://localhost:3000");
+const clientUrl=requireEnv("CLIENT_URL", "http://localhost:5173");
 
 const env={
   nodeEnv,

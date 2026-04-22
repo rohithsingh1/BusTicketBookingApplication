@@ -1,0 +1,234 @@
+.signin-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f5f9;
+    padding: 16px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+        Arial, sans-serif;
+    color: #0f172a;
+}
+
+.signin-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 12px;
+    padding: 40px 32px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+}
+
+.signin-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #0f172a;
+}
+
+.signin-subtitle {
+    text-align: center;
+    font-size: 15px;
+    color: #64748b;
+    margin: 0 0 32px;
+}
+
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.signin-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.signin-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.signin-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.signin-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 44px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #0f172a;
+    background: #ffffff;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.signin-input::placeholder {
+    color: #cbd5e1;
+}
+
+.signin-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.signin-input--error {
+    border-color: #dc2626;
+}
+
+.signin-input--error:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+.signin-input-icon {
+    position: absolute;
+    left: 14px;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+.signin-input-toggle {
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+}
+
+.signin-input-toggle:hover {
+    color: #0f172a;
+}
+
+.signin-submit {
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.15s ease;
+}
+
+.signin-submit:hover {
+    background: #1d4ed8;
+}
+
+.signin-submit:active {
+    background: #1e40af;
+}
+
+.signin-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #0f172a;
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+.signin-divider::before,
+.signin-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.signin-google {
+    height: 48px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.signin-google:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.signin-google:disabled,
+.signin-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.signin-error {
+    margin: -4px 0 0;
+    color: #dc2626;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.signin-field-error {
+    margin: 0;
+    color: #dc2626;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.signin-switch-text {
+    margin: 4px 0 0;
+    text-align: center;
+    color: #4b5563;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.signin-switch-link {
+    color: #0284c7;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signin-switch-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .signin-card {
+        padding: 28px 20px;
+        border-radius: 10px;
+    }
+
+    .signin-title {
+        font-size: 24px;
+    }
+
+    .signin-subtitle {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+}
