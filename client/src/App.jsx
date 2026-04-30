@@ -4,6 +4,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 const SignIn=lazy(() => import("./pages/SignIn/SignIn"));
 const AuthSuccess=lazy(() => import("./pages/AuthSuccess/AuthSuccess"));
 const SignUp=lazy(() => import("./pages/SignUp/SignUp"));
+const Home=lazy(() => import("./pages/Home/Home"));
 
 const RouteFallback=() => (
     <main className="route-loading">
@@ -15,7 +16,7 @@ function App() {
     return (
         <Suspense fallback={<RouteFallback />}>
             <Routes>
-                <Route path="/" element={<Navigate to="/login" replace />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/login" element={<SignIn />} />
                 <Route path="/register" element={<SignUp />} />
                 <Route path="/auth/success" element={<AuthSuccess />} />
