@@ -1,0 +1,29 @@
+client/package.json
+  d74aef2b43a1dbb8 20,28
+client/vite.config.js
+  d74aef2b43a1dbb8 3,7
+client/src/App.jsx
+  d74aef2b43a1dbb8 7,19
+client/src/index.css
+  d74aef2b43a1dbb8 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.7",
+  "base_commit_sha": "33f8aa5ddc2ededb6af40bc5c939acabc2243e6b",
+  "prompts": {
+    "d74aef2b43a1dbb8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019dda83-0d47-75c2-962e-e46b68b5b562",
+        "model": "gpt-5.5"
+      },
+      "human_author": "unknown",
+      "messages": [],
+      "total_additions": 9,
+      "total_deletions": 3,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    }
+  }
+}
